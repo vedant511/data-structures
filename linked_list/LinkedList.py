@@ -7,7 +7,6 @@ class Node(object):
 class List(object):
     def __init__(self):
         self.head = None
-        self.tail = None
         self.size = 0
 
     def is_empty(self):
@@ -25,10 +24,6 @@ class List(object):
                 temp = self.head
                 self.head = new_node
                 new_node.next = temp
-            elif pos == self.size+1:
-                temp = self.tail
-                self.tail = new_node
-                temp.next = new_node
             else:
                 prev = None
                 curr = self.head
@@ -63,29 +58,24 @@ class List(object):
         return False
 
     def pop(self, pos=None):
-        if pos is None:
-            temp = self.head.next
-            self.head = temp
-            self.head.next = None
-        else:
-            item = None
-            if pos <= 0 or pos > self.size:
+        if pos is None or pos == 1:
+            temp = self.head
+            self.head = self.head.next
+            self.size -= 1
+            return True, temp.data
+        elif pos <= 0 or pos > self.size:
                 return False
-            elif pos == 1:
-                temp = self.head.next
-                self.head = temp
-                self.head.next = None
-            else:
-                count = 0
-                curr = self.head
-                prev = None
-                while count != pos:
-                    prev = curr
-                    curr = curr.next
-                    count += 1
-                item = curr.data
-                prev.next = curr.next
-                curr.next = None
+        else:
+            count = 1
+            curr = self.head
+            prev = None
+            while count != pos:
+                prev = curr
+                curr = curr.next
+                count += 1
+            item = curr.data
+            prev.next = curr.next
+            curr.next = None
             if item:
                 return True, item
             else:
