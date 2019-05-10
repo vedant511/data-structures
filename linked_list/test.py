@@ -20,11 +20,11 @@ print(lst.get_size())
 print(lst.traverse())
 print(lst.is_empty())
 print(lst.head.data)
-# print(lst.tail.data)
 
 print('=====REMOVE=====')
 lst.remove(54)
 lst.remove(31)
+lst.remove(100)
 print(lst.get_size())
 
 print('=====SEARCH=====')
