@@ -58,35 +58,28 @@ class List(object):
         return False
 
     def pop(self, pos=None):
-        if pos is None:
+        if pos is None or pos == 1:
             temp = self.head
             self.head = self.head.next
             self.size -= 1
             return True, temp.data
-        else:
-            if pos <= 0 or pos > self.size:
+        elif pos <= 0 or pos > self.size:
                 return False
-            elif pos == 1:
-                temp = self.head.next
-                self.head = temp
-                temp.next = None
-                self.size -= 1
-                return True, temp.data
+        else:
+            count = 1
+            curr = self.head
+            prev = None
+            while count != pos:
+                prev = curr
+                curr = curr.next
+                count += 1
+            item = curr.data
+            prev.next = curr.next
+            curr.next = None
+            if item:
+                return True, item
             else:
-                count = 0
-                curr = self.head
-                prev = None
-                while count != pos:
-                    prev = curr
-                    curr = curr.next
-                    count += 1
-                item = curr.data
-                prev.next = curr.next
-                curr.next = None
-                if item:
-                    return True, item
-                else:
-                    return False
+                return False
 
     def search(self, item):
         found = False
